@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject playerDeathBlurObject;
     [SerializeField] private GameObject playerDeathColorObject;
     [SerializeField] private GameObject menuUI;
+    
 
     [SerializeField] private AudioSource jumpSoundEffect;
     [SerializeField] private AudioSource landSoundEffect;
@@ -38,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
     private bool playerDead = false;
 
     public int coinsCount = 0;
+    bool touchKey = false;
+    public bool keyCollected = false;
 
     // Start is called before the first frame update
     void Start()
@@ -53,7 +57,13 @@ public class PlayerMovement : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+        if(Input.GetKeyDown(KeyCode.E) && touchKey == true)
+        {
+            coinsCount++;
+            keyCollected = true;
+        }
+
         if(gameObject.transform.position.y <= -25)
         {
             playerDead = true;
@@ -133,7 +143,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("Keys"))
         {
-            coinsCount++;
+            touchKey = true;
+        }
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Keys"))
+        {
+            touchKey = false;
         }
     }
 }

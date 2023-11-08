@@ -12978,6 +12978,7 @@ MonoBehaviour:
   menuAppearSeconds: 1
   playerHealth: 1
   coinsCount: 0
+  keyCollected: 0
 --- !u!61 &1240120755
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13325,6 +13326,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1319247712 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5265826443829166685, guid: 00631a775209b2d4f86af07976e450e4, type: 3}
+  m_PrefabInstance: {fileID: 1339138401}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1339138401
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13333,9 +13339,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5265826443829166663, guid: 00631a775209b2d4f86af07976e450e4, type: 3}
+      propertyPath: KeyObject
+      value: 
+      objectReference: {fileID: 1319247712}
+    - target: {fileID: 5265826443829166663, guid: 00631a775209b2d4f86af07976e450e4, type: 3}
       propertyPath: playerObject
       value: 
       objectReference: {fileID: 1240120748}
+    - target: {fileID: 5265826443829166663, guid: 00631a775209b2d4f86af07976e450e4, type: 3}
+      propertyPath: playerMovementScript
+      value: 
+      objectReference: {fileID: 1240120754}
     - target: {fileID: 5265826443829166685, guid: 00631a775209b2d4f86af07976e450e4, type: 3}
       propertyPath: m_TagString
       value: Keys

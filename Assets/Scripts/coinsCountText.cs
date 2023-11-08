@@ -14,14 +14,14 @@ public class coinsCountText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_MyText.text = playerMovementScript.coinsCount.ToString();
+        m_MyText.text = "Keys: " + playerMovementScript.coinsCount.ToString();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        m_MyText.text = playerMovementScript.coinsCount.ToString();
+        m_MyText.text = "Keys: " + playerMovementScript.coinsCount.ToString();
     }
 
    
