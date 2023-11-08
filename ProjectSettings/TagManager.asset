@@ -7,6 +7,7 @@ TagManager:
   - Tilemap
   - enemy
   - stomphitbox
+  - Keys
   layers:
   - Default
   - TransparentFX

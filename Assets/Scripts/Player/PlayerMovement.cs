@@ -37,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
     private bool playerJumped = false;
     private bool playerDead = false;
 
+    public int coinsCount = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -125,5 +127,13 @@ public class PlayerMovement : MonoBehaviour
     {
         //center, size, angle, direction, distance
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Keys"))
+        {
+            coinsCount++;
+        }
     }
 }
