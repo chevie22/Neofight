@@ -1,12 +1,9 @@
-using UnityEngine;
+/*using UnityEngine;
 
 public class ObjectInteraction : MonoBehaviour
 {
-    public Canvas canvas;
-    public GameObject playerObject;
+    //public Canvas canvas;
     public PlayerMovement playerMovementScript;
-    public GameObject KeyObject;
-
 
     private void Start()
     {
@@ -17,7 +14,7 @@ public class ObjectInteraction : MonoBehaviour
     {
         if(playerMovementScript.keyCollected == true)
             {
-                KeyObject.gameObject.SetActive(false);
+                this.transform.parent.gameObject.SetActive(false);
                 playerMovementScript.keyCollected = false;
             }
     }
@@ -26,7 +23,7 @@ public class ObjectInteraction : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            canvas.gameObject.SetActive(true);
+            //canvas.gameObject.SetActive(true);
         }
     }
 
@@ -34,7 +31,7 @@ public class ObjectInteraction : MonoBehaviour
     {      
         if (other.CompareTag("Player"))
         {
-            canvas.gameObject.SetActive(false);
+            //canvas.gameObject.SetActive(false);
         }
     }
-}
+}*/

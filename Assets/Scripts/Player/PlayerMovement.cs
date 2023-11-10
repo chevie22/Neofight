@@ -19,13 +19,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject playerDeathBlurObject;
     [SerializeField] private GameObject playerDeathColorObject;
     [SerializeField] private GameObject menuUI;
-    
+    [SerializeField] private GameObject canvas;
+    [SerializeField] private GameObject test123123;
 
     [SerializeField] private AudioSource jumpSoundEffect;
     [SerializeField] private AudioSource landSoundEffect;
     
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float moveSpeed = 10f;
+
 
     public int playerHealth = 3;
 
@@ -35,9 +37,10 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 explosionPos;
     private bool playerDead = false;
 
+    //keys variable
     public int coinsCount = 0;
-    bool touchKey = false;
-    public bool keyCollected = false;
+    private bool inventory = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -55,16 +58,19 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {   
 
-
         if(Input.GetKeyDown(KeyCode.T) && coinsCount > 0)
         {
-            Debug.Log("Hi");
-        }
-        
-        if(Input.GetKeyDown(KeyCode.E) && touchKey == true)
-        {
-            coinsCount++;
-            keyCollected = true;
+            if(inventory == true)
+            {
+                canvas.gameObject.SetActive(false);
+                inventory = false;
+            }
+            else{
+                Debug.Log("Hi");
+                canvas.gameObject.SetActive(true);
+                inventory = true;
+            }
+            
         }
 
         if(gameObject.transform.position.y <= -25)
@@ -146,14 +152,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("Keys"))
         {
-            touchKey = true;
-        }
-    }
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Keys"))
-        {
-            touchKey = false;
+            coinsCount++;
+            Destroy(other.gameObject);
         }
     }
 }

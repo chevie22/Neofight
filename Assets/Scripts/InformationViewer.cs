@@ -9,6 +9,7 @@ public class InformationViewer : MonoBehaviour
 
     [SerializeField] TMPro.TextMeshProUGUI title;
     [SerializeField] TMPro.TextMeshProUGUI description;
+    public PlayerMovement playerMovementScript;
 
     int currentIndex;
 
@@ -20,7 +21,7 @@ public class InformationViewer : MonoBehaviour
     public void OnNextButtonPress()
     {
         currentIndex++;
-        if(currentIndex >= info.Length)
+        if(currentIndex >= playerMovementScript.coinsCount)
         {
             currentIndex = 0;
         }
