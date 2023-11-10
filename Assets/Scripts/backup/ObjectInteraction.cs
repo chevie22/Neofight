@@ -18,6 +18,7 @@ public class ObjectInteraction : MonoBehaviour
         if(playerMovementScript.keyCollected == true)
             {
                 KeyObject.gameObject.SetActive(false);
+                playerMovementScript.keyCollected = false;
             }
     }
 

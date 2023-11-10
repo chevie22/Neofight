@@ -16,7 +16,6 @@ public class Enemy_Movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         currentPoint = pointB.transform;
-        anim.SetBool("isRUnning", true);
     }
 
     private void Update()

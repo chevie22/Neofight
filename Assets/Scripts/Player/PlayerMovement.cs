@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,7 +26,6 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float moveSpeed = 10f;
-    [SerializeField] private float menuAppearSeconds = 1f;
 
     public int playerHealth = 3;
 
@@ -35,8 +33,6 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 playerPos;
     private Vector2 explosionPos;
-
-    private bool playerJumped = false;
     private bool playerDead = false;
 
     public int coinsCount = 0;
@@ -58,6 +54,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
+
+
+        if(Input.GetKeyDown(KeyCode.T) && coinsCount > 0)
+        {
+            Debug.Log("Hi");
+        }
+        
         if(Input.GetKeyDown(KeyCode.E) && touchKey == true)
         {
             coinsCount++;
