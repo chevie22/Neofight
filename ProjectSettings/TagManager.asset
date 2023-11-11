@@ -8,6 +8,7 @@ TagManager:
   - enemy
   - stomphitbox
   - Keys
+  - Secret
   layers:
   - Default
   - TransparentFX
