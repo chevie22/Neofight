@@ -24,9 +24,12 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private AudioSource jumpSoundEffect;
     [SerializeField] private AudioSource landSoundEffect;
+    [SerializeField] private AudioSource coinCollectSoundEffect;
     
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float moveSpeed = 10f;
+
+    private CanvasGroup infoCanvasGroup;
 
 
     public int playerHealth = 3;
@@ -46,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         //get Player components
+        infoCanvasGroup = canvas.GetComponent<CanvasGroup>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
@@ -69,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("Hi");
                 canvas.gameObject.SetActive(true);
                 inventory = true;
+                infoCanvasGroup.alpha = 0;
             }
             
         }
@@ -154,6 +159,7 @@ public class PlayerMovement : MonoBehaviour
         {
             coinsCount++;
             Destroy(other.gameObject);
+            coinCollectSoundEffect.Play();
         }
     }
 }
