@@ -2,6 +2,9 @@
 
 public class InformationData
 {
-    public string Title;
-    public string Description;
+    public string[] Title;
+    public string[] Description;
 }
+
+
+

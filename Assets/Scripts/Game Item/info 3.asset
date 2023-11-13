@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef68f9da6d21a6b47b2e5a21af653425, type: 3}
   m_Name: info 3
   m_EditorClassIdentifier: 
-  ItemName: chvie
-  Description: noobs
+  ItemName: test
+  Description: hi
