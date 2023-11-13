@@ -13494,13 +13494,13 @@ GameObject:
   - component: {fileID: 1240120752}
   - component: {fileID: 1240120751}
   - component: {fileID: 1240120750}
-  - component: {fileID: 1240120749}
   - component: {fileID: 1240120754}
   - component: {fileID: 1240120755}
   - component: {fileID: 1240120756}
   - component: {fileID: 1240120757}
   - component: {fileID: 1240120758}
   - component: {fileID: 1240120759}
+  - component: {fileID: 1240120760}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -13508,27 +13508,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!50 &1240120749
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1240120748}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 2
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!95 &1240120750
 Animator:
   serializedVersion: 5
@@ -13640,7 +13619,7 @@ MonoBehaviour:
   playerDeathBlurObject: {fileID: 5487277690997199014, guid: 80d3dd4d800d5c746950786bc2b32af0, type: 3}
   playerDeathColorObject: {fileID: 1539772378}
   menuUI: {fileID: 922746748}
-  canvas: {fileID: 0}
+  canvas: {fileID: 824207245}
   test123123: {fileID: 0}
   jumpSoundEffect: {fileID: 1240120757}
   landSoundEffect: {fileID: 1240120758}
@@ -14059,6 +14038,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!50 &1240120760
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240120748}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 2
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &1260069736
 GameObject:
   m_ObjectHideFlags: 0

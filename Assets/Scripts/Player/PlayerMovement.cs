@@ -48,14 +48,11 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //get Player components
-        infoCanvasGroup = canvas.GetComponent<CanvasGroup>();
         rb = GetComponent<Rigidbody2D>();
+        coll = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
-        coll = GetComponent<BoxCollider2D>();
 
-        
     }
 
     // Update is called once per frame
