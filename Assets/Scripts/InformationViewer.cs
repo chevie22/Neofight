@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class InformationViewer : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class InformationViewer : MonoBehaviour
     {
         currentIndex = 0;
         DisplayInformation();
+
+
     }
     public void OnNextButtonPress()
     {
@@ -40,7 +43,9 @@ public class InformationViewer : MonoBehaviour
 
     public void DisplayInformation()
     {
-        title.text = info[currentIndex].ItemName;
-        description.text = info[currentIndex].Description;
+        string json = File.ReadAllText(Application.dataPath + "/json/InformationDataFile.json");
+        InformationData data = JsonUtility.FromJson<InformationData>(json);
+        title.text = data.Title[currentIndex];
+        description.text = data.Description[currentIndex];
     }
 }
