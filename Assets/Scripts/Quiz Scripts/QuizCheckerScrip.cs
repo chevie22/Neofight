@@ -28,7 +28,7 @@ public class QuizCheckerScrip : MonoBehaviour
     {
         //initialize prompts and answers (initialize using json file later)
 
-        //set question prompts of each question (initialize using json file later)
+        //set question prompts of each question (initialize using json file later use for loop)
         questionTexts = new string[5];
         questionTexts[0] = "Hello Swagster1";
         questionTexts[1] = "Hello Swagster2";
@@ -38,7 +38,7 @@ public class QuizCheckerScrip : MonoBehaviour
 
         questionText.text = questionTexts[currentQuestion - 1];
 
-        //set correct answers of each question (initialize using json file later)
+        //set correct answers of each question (initialize using json file later use for loop)
         correctAnswerNumber = new int[5];
         correctAnswerNumber[0] = 1;
         correctAnswerNumber[1] = 2;
