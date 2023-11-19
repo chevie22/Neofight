@@ -23,11 +23,10 @@ public class JsonReadWriteSystem : MonoBehaviour
 
     public TMP_InputField titleInputField4;
     public TMP_InputField descriptionInputField4;
-    //public InputField titleInputField;
-    //public InputField descriptionInputField;
 
     public void SaveToJson()
     {
+        //save written text into a json file
         InformationData data = new InformationData();
         data.Title = new string[5];
         data.Description = new string[5];
@@ -53,9 +52,12 @@ public class JsonReadWriteSystem : MonoBehaviour
 
     public void LoadFromJson()
     {
+        //load json file
         string json = File.ReadAllText(Application.dataPath + "/json/InformationDataFile.json");
         InformationData data = JsonUtility.FromJson<InformationData>(json);
 
+
+        //read json file and put it into input field texts
         titleInputField0.text = data.Title[0];
         descriptionInputField0.text = data.Description[0];
 
