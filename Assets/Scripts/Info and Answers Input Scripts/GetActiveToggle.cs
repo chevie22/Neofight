@@ -22,8 +22,7 @@ public class GetActiveToggle : MonoBehaviour
     //I wanna return an int depending on what toggle is pressed yawa
     public int LogSelectedToggle()
     {
-        // OR
-
+        //get what toggle is selected from togglegroup, switch case the selected toggle name and return corresponding index
         Toggle selectedToggle = toggleGroup.ActiveToggles().FirstOrDefault();
         if (selectedToggle != null)
             switch (selectedToggle.name)
@@ -39,7 +38,7 @@ public class GetActiveToggle : MonoBehaviour
             } return 0; 
     }
 
-    //plan 2 
+    //plan 2 useless maybe idk... (dont delete yet)
     Toggle GetSelectedToggle()
     {
         foreach (var t in toggles)
