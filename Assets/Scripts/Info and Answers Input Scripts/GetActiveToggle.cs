@@ -6,8 +6,6 @@ using System.Linq;
 
 public class GetActiveToggle : MonoBehaviour
 {
-    public UnityEngine.UI.ToggleGroup toggleGroup; 
-    public UnityEngine.UI.Toggle[] toggles;
 
     void Start()
     {
@@ -16,33 +14,29 @@ public class GetActiveToggle : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(LogSelectedToggle());
+
     }
 
-    //I wanna return an int depending on what toggle is pressed yawa
-    public int LogSelectedToggle()
+    //return int depending on what toggle was pressed
+    public int GetSelectedToggle()
     {
-        //get what toggle is selected from togglegroup, switch case the selected toggle name and return corresponding index
-        Toggle selectedToggle = toggleGroup.ActiveToggles().FirstOrDefault();
-        if (selectedToggle != null)
-            switch (selectedToggle.name)
-            {
-                case "Choice1Toggle":
-                    return 1;
-                case "Choice2Toggle":
-                    return 2;
-                case "Choice3Toggle":
-                    return 3;
-                case "Choice4Toggle":
-                    return 4;
-            } return 0; 
-    }
-
-    //plan 2 useless maybe idk... (dont delete yet)
-    Toggle GetSelectedToggle()
-    {
+        Toggle[] toggles = GetComponentsInChildren<Toggle>();
         foreach (var t in toggles)
-            if (t.isOn) return t;  //returns selected toggle
-        return null;           // if nothing is selected return null
+            if (t.isOn)
+            {
+                switch (t.name)
+                {
+                    case "Choice1Toggle":
+                        return 1;
+                    case "Choice2Toggle":
+                        return 2;
+                    case "Choice3Toggle":
+                        return 3;
+                    case "Choice4Toggle":
+                        return 4;
+
+                }
+            }  
+        return 0;         
     }
 }
