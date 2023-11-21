@@ -50,32 +50,26 @@ public class MouseHoverChangeStuff : MonoBehaviour, IPointerEnterHandler, IPoint
             StartCoroutine(scaleOverTime(panelGameObject.transform, arrowGameObject.transform, new Vector3(1f, 1f, 1f), 0.2f));
 
         }
-
-        Debug.Log(mouse_clicked);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         mouse_over = true;
-        Debug.Log("Mouse enter");
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         mouse_over = false;
-        Debug.Log("Mouse exit");
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         mouse_clicked = true;
-        Debug.Log(this.gameObject.name + " Was Clicked.");
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         mouse_clicked = false;
-        Debug.Log(this.gameObject.name + " Was Released.");
     }
 
     IEnumerator scaleOverTime(Transform objectToScale, Transform objectToScale2, Vector3 toScale, float duration)
