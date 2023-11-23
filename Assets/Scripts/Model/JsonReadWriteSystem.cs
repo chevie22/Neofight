@@ -55,18 +55,23 @@ public class JsonReadWriteSystem : MonoBehaviour
         //question prompts storing ^-^
         data.Prompts = new string[5];
 
-        data.Prompts[0] = promptInputField[0].text;
+        for(int i = 0; i < 5; i++)
+        {
+            data.Prompts[i] = promptInputField[i].text;
+        }
+        
+        /*data.Prompts[0] = promptInputField[0].text;
         data.Prompts[1] = promptInputField[1].text;
         data.Prompts[2] = promptInputField[2].text;
         data.Prompts[3] = promptInputField[3].text;
-        data.Prompts[4] = promptInputField[4].text;
+        data.Prompts[4] = promptInputField[4].text;*/
 
         //store the 4 choices of every question
         data.Choices1 = new string[5*4];
-        data.Choices2 = new string[4];
-        data.Choices3 = new string[4];
-        data.Choices4 = new string[4];
-        data.Choices5 = new string[4];
+        //data.Choices2 = new string[4];
+        //data.Choices3 = new string[4];
+        //data.Choices4 = new string[4];
+        //data.Choices5 = new string[4];
 
         //Only God knows
         int index = 0;
