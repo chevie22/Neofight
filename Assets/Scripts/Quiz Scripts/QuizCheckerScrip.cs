@@ -6,10 +6,7 @@ using TMPro;
 
 public class QuizCheckerScrip : MonoBehaviour
 {
-    public int answerPressed = 0;
-    public int currentQuestion = 1;
-
-    private int[] correctAnswerNumber;
+    private int correctAnswerNumber;
     private string[] questionTexts;
 
     [SerializeField] GameObject[] questionPrompts;
@@ -21,53 +18,40 @@ public class QuizCheckerScrip : MonoBehaviour
     public TMPro.TextMeshProUGUI buttonText3;
     public TMPro.TextMeshProUGUI buttonText4;
 
+    int answerPressed = -1;
+    int currentQuestion = 0;
+
 
 
 
     void Start()
     {
-        //initialize prompts and answers (initialize using json file later)
+        DisplayInformation();
 
-        //set question prompts of each question (initialize using json file later use for loop)
-        questionTexts = new string[5];
-        questionTexts[0] = "Hello Swagster1";
-        questionTexts[1] = "Hello Swagster2";
-        questionTexts[2] = "Hello Swagster3";
-        questionTexts[3] = "Hello Swagster4";
-        questionTexts[4] = "Hello Swagster5";
-
-        questionText.text = questionTexts[currentQuestion - 1];
-
-        //set correct answers of each question (initialize using json file later use for loop)
-        correctAnswerNumber = new int[5];
-        correctAnswerNumber[0] = 1;
-        correctAnswerNumber[1] = 2;
-        correctAnswerNumber[2] = 3;
-        correctAnswerNumber[3] = 4;
-        correctAnswerNumber[4] = 1;
     }
 
 
     void Update()
     {
         //if correct answer is pressed, proceed to next question
-        if(currentQuestion < 6 && answerPressed == correctAnswerNumber[currentQuestion - 1])
+        if(currentQuestion < 5 && answerPressed == correctAnswerNumber)
         {
             NextQuestion();
         }
         //if all questions are answered correctly, proceed to next level
-        if(currentQuestion >= 6)
+        if(currentQuestion >= 5)
         {
             NextLevel();
+            currentQuestion = 0;
         }
     }
 
     //next question function
     public void NextQuestion()
     {
-        answerPressed = 0;
+        answerPressed = -1;
         currentQuestion++;
-        questionText.text = questionTexts[currentQuestion - 1];
+        DisplayInformation();
         Debug.Log("SEIKAI!!");
     }
     //next level function
@@ -96,5 +80,17 @@ public class QuizCheckerScrip : MonoBehaviour
     public void FourButtonPressed()
     {
         answerPressed = 4;
+    }
+
+    public void DisplayInformation()
+    {
+        string json = File.ReadAllText(Application.dataPath + "/json/InformationDataFile.json");
+        InformationData data = JsonUtility.FromJson<InformationData>(json);
+        questionText.text = data.Prompts[currentQuestion];
+        correctAnswerNumber = data.correctAnswerNumber[currentQuestion];
+        buttonText1.text = data.Choices1[currentQuestion * 4 + 0];
+        buttonText2.text = data.Choices1[currentQuestion * 4 + 1];
+        buttonText3.text = data.Choices1[currentQuestion * 4 + 2];
+        buttonText4.text = data.Choices1[currentQuestion * 4 + 3];
     }
 }

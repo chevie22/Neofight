@@ -62,16 +62,32 @@ public class JsonReadWriteSystem : MonoBehaviour
         data.Prompts[4] = promptInputField[4].text;
 
         //store the 4 choices of every question
-        data.Choices1 = new string[4];
+        data.Choices1 = new string[5*4];
         data.Choices2 = new string[4];
         data.Choices3 = new string[4];
         data.Choices4 = new string[4];
         data.Choices5 = new string[4];
 
-        data.Choices1[0] = choices1InputField[0].text;
+        //Only God knows
+        int index = 0;
+        for(int i = 0;i < 4; i++)
+        {
+            data.Choices1[i] = choices1InputField[i].text;
+        }
+        index++;
+        for(int i = 0;i < 4; i++)data.Choices1[index*4+i] = choices2InputField[i].text;
+        index++;
+        for(int i = 0;i < 4; i++)data.Choices1[index*4+i] = choices3InputField[i].text;
+        index++;
+        for(int i = 0;i < 4; i++)data.Choices1[index*4+i] = choices4InputField[i].text;
+        index++;
+        for(int i = 0;i < 4; i++)data.Choices1[index*4+i] = choices5InputField[i].text;
+
+        /*data.Choices1[0] = choices1InputField[0].text;
         data.Choices1[1] = choices1InputField[1].text;
         data.Choices1[2] = choices1InputField[2].text;
         data.Choices1[3] = choices1InputField[3].text;
+
 
         data.Choices2[0] = choices2InputField[0].text;
         data.Choices2[1] = choices2InputField[1].text;
@@ -91,7 +107,7 @@ public class JsonReadWriteSystem : MonoBehaviour
         data.Choices5[0] = choices5InputField[0].text;
         data.Choices5[1] = choices5InputField[1].text;
         data.Choices5[2] = choices5InputField[2].text;
-        data.Choices5[3] = choices5InputField[3].text;
+        data.Choices5[3] = choices5InputField[3].text;*/
 
 
         //store answer index of every question

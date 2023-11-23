@@ -70,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("Hi");
                 canvas.gameObject.SetActive(true);
                 inventory = true;
-                infoCanvasGroup.alpha = 0;
+                //infoCanvasGroup.alpha = 0;
             }
             
         }
