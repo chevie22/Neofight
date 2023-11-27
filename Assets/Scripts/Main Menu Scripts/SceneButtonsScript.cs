@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StartGameButton : MonoBehaviour
+public class SceneButtonsScript : MonoBehaviour
 {
 
     // Start is called before the first frame update
@@ -28,8 +28,14 @@ public class StartGameButton : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     public void QuitGame()
     {
         Application.Quit();
+        UnityEditor.EditorApplication.isPlaying = false;
     }
 }
