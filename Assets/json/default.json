@@ -1,0 +1,49 @@
+{
+    "Title": [
+        "Algorithm",
+        "Database",
+        "Firewall",
+        "Encryption",
+        "HTML"
+    ],
+    "Description": [
+        "A step-by-step set of instructions for solving a specific problem or performing a task in computer programming.",
+        "A structured collection of data that can be easily accessed, managed, and manipulated.",
+        "A security system that filters network traffic to protect against unauthorized access or threats.",
+        "The process of converting data into a code to secure it from unauthorized access.",
+        "(Hypertext Markup Language) The standard language for creating and displaying web pages"
+    ],
+    "Choices": [
+        "Encryption",
+        "Algorithm",
+        "Firewall",
+        "HTML",
+
+        "Algorithm",
+        "HTML",
+        "Database",
+        "Encryption",
+
+        "Firewall",
+        "HTML",
+        "Algorithm",
+        "Encryption",
+
+        "Database",
+        "Algorithm",
+        "Firewall",
+        "Encryption",
+
+        "HTML",
+        "Firewall",
+        "Encryption",
+        "Database"
+    ],
+    "correctAnswerNumber": [
+        2,
+        3,
+        1,
+        4,
+        1
+    ]
+}

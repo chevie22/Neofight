@@ -14370,11 +14370,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6630879337262751211, guid: 146025ac4c8e02646ac7fbb85ff742d9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -37.37
+      value: -18.08
       objectReference: {fileID: 0}
     - target: {fileID: 6630879337262751211, guid: 146025ac4c8e02646ac7fbb85ff742d9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.3
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 6630879337262751211, guid: 146025ac4c8e02646ac7fbb85ff742d9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -14860,6 +14860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59621270ea67da345b3d0dabd6f086f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PMS: {fileID: 1240120754}
 --- !u!50 &1658107876
 Rigidbody2D:
   serializedVersion: 4

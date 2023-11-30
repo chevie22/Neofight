@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using TMPro;
-
+using UnityEngine.SceneManagement;
 public class QuizCheckerScrip : MonoBehaviour
 {
     private int correctAnswerNumber;
-    private string[] questionTexts;
+    //private string[] questionTexts;
 
-    [SerializeField] GameObject[] questionPrompts;
+    //[SerializeField] GameObject[] questionPrompts;
 
     [Header("Button And Question Texts")]
     public TMPro.TextMeshProUGUI questionText;
@@ -20,24 +20,36 @@ public class QuizCheckerScrip : MonoBehaviour
 
     int answerPressed = -1;
     int currentQuestion = 0;
-
+    bool ifPressed = false;
+    bool entryInput = true;
 
 
 
     void Start()
     {
         DisplayInformation();
-
     }
 
 
     void Update()
     {
-        //if correct answer is pressed, proceed to next question
-        if(currentQuestion < 5 && answerPressed == correctAnswerNumber)
+        if (ifPressed)
         {
-            NextQuestion();
+            if(answerPressed == correctAnswerNumber) 
+            {
+                NextQuestion();
+            }
+            else{
+                Debug.Log("まちがったこたえ!!");
+                Reset();
+            }
+            
         }
+        //if correct answer is pressed, proceed to next question
+        //if(currentQuestion < 5 && answerPressed == correctAnswerNumber)
+        //{
+        //    NextQuestion();
+        //}
         //if all questions are answered correctly, proceed to next level
         if(currentQuestion >= 5)
         {
@@ -50,6 +62,7 @@ public class QuizCheckerScrip : MonoBehaviour
     public void NextQuestion()
     {
         answerPressed = -1;
+        ifPressed = false;
         currentQuestion++;
         DisplayInformation();
         Debug.Log("SEIKAI!!");
@@ -57,7 +70,7 @@ public class QuizCheckerScrip : MonoBehaviour
     //next level function
     public void NextLevel()
     {
-        Debug.Log("CONGRATS!! YOU ACED THE TEST LMFAO!!");
+        SceneManager.LoadScene(4);
     }
 
 
@@ -65,32 +78,62 @@ public class QuizCheckerScrip : MonoBehaviour
     public void OneButtonPressed()
     {
         answerPressed = 1;
+        ifPressed = true;
     }
 
     public void TwoButtonPressed()
     {
         answerPressed = 2;
+        ifPressed = true;
     }
 
     public void ThreeButtonPressed()
     {
         answerPressed = 3;
+        ifPressed = true;
     }
 
     public void FourButtonPressed()
     {
         answerPressed = 4;
+        ifPressed = true;
     }
 
     public void DisplayInformation()
     {
+
         string json = File.ReadAllText(Application.dataPath + "/json/InformationDataFile.json");
         InformationData data = JsonUtility.FromJson<InformationData>(json);
+        if(data.Title[0] == ""){
+            DisplayInformationDefault();
+            return;
+        }
         questionText.text = data.Prompts[currentQuestion];
         correctAnswerNumber = data.correctAnswerNumber[currentQuestion];
-        buttonText1.text = data.Choices1[currentQuestion * 4 + 0];
-        buttonText2.text = data.Choices1[currentQuestion * 4 + 1];
-        buttonText3.text = data.Choices1[currentQuestion * 4 + 2];
-        buttonText4.text = data.Choices1[currentQuestion * 4 + 3];
+        buttonText1.text = data.Choices[currentQuestion * 4 + 0];
+        buttonText2.text = data.Choices[currentQuestion * 4 + 1];
+        buttonText3.text = data.Choices[currentQuestion * 4 + 2];
+        buttonText4.text = data.Choices[currentQuestion * 4 + 3];
+    }
+
+     public void DisplayInformationDefault()
+    {
+        string json = File.ReadAllText(Application.dataPath + "/json/default.json");
+        InformationData data = JsonUtility.FromJson<InformationData>(json);
+        questionText.text = data.Description[currentQuestion];
+        correctAnswerNumber = data.correctAnswerNumber[currentQuestion];
+
+
+        buttonText1.text = data.Choices[currentQuestion * 4 + 0];
+        buttonText2.text = data.Choices[currentQuestion * 4 + 1];
+        buttonText3.text = data.Choices[currentQuestion * 4 + 2];
+        buttonText4.text = data.Choices[currentQuestion * 4 + 3];
+    }
+
+    public void Reset()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
     }
 }
+
+//SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

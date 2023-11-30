@@ -5,7 +5,7 @@ public class InformationData
     public string[] Title;
     public string[] Description;
     public string[] Prompts;
-    public string[] Choices1;
+    public string[] Choices;
     public string[] Choices2;
     public string[] Choices3;
     public string[] Choices4;

@@ -22398,7 +22398,7 @@ MonoBehaviour:
   - {fileID: 935725678}
   - {fileID: 35528017}
   - {fileID: 194641871}
-  choices1InputField:
+  choicesInputField:
   - {fileID: 1582666667}
   - {fileID: 1076556785}
   - {fileID: 575133491}
@@ -22451,6 +22451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ab44a6e3c323945bb146dcb8625827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenuCanvasGroup: {fileID: 0}
 --- !u!1 &1250775757
 GameObject:
   m_ObjectHideFlags: 0

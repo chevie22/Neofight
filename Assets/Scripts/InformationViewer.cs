@@ -45,6 +45,18 @@ public class InformationViewer : MonoBehaviour
     {
         string json = File.ReadAllText(Application.dataPath + "/json/InformationDataFile.json");
         InformationData data = JsonUtility.FromJson<InformationData>(json);
+        if(data.Title[0] == ""){
+            DisplayInformationDefault();
+            return;
+        }
+        title.text = data.Title[currentIndex];
+        description.text = data.Description[currentIndex];
+    }
+
+    public void DisplayInformationDefault()
+    {
+        string json = File.ReadAllText(Application.dataPath + "/json/default.json");
+        InformationData data = JsonUtility.FromJson<InformationData>(json);
         title.text = data.Title[currentIndex];
         description.text = data.Description[currentIndex];
     }

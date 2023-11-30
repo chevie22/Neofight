@@ -13,7 +13,7 @@ public class JsonReadWriteSystem : MonoBehaviour
     public TMP_InputField[] promptInputField;
 
     [Header("Da Choices 1")]
-    public TMP_InputField[] choices1InputField;
+    public TMP_InputField[] choicesInputField;
 
     [Header("Da Choices 2")]
     public TMP_InputField[] choices2InputField;
@@ -67,7 +67,7 @@ public class JsonReadWriteSystem : MonoBehaviour
         data.Prompts[4] = promptInputField[4].text;*/
 
         //store the 4 choices of every question
-        data.Choices1 = new string[5*4];
+        data.Choices = new string[5*4];
         //data.Choices2 = new string[4];
         //data.Choices3 = new string[4];
         //data.Choices4 = new string[4];
@@ -77,16 +77,16 @@ public class JsonReadWriteSystem : MonoBehaviour
         int index = 0;
         for(int i = 0;i < 4; i++)
         {
-            data.Choices1[i] = choices1InputField[i].text;
+            data.Choices[i] = choicesInputField[i].text;
         }
         index++;
-        for(int i = 0;i < 4; i++)data.Choices1[index*4+i] = choices2InputField[i].text;
+        for(int i = 0;i < 4; i++)data.Choices[index*4+i] = choices2InputField[i].text;
         index++;
-        for(int i = 0;i < 4; i++)data.Choices1[index*4+i] = choices3InputField[i].text;
+        for(int i = 0;i < 4; i++)data.Choices[index*4+i] = choices3InputField[i].text;
         index++;
-        for(int i = 0;i < 4; i++)data.Choices1[index*4+i] = choices4InputField[i].text;
+        for(int i = 0;i < 4; i++)data.Choices[index*4+i] = choices4InputField[i].text;
         index++;
-        for(int i = 0;i < 4; i++)data.Choices1[index*4+i] = choices5InputField[i].text;
+        for(int i = 0;i < 4; i++)data.Choices[index*4+i] = choices5InputField[i].text;
 
         /*data.Choices1[0] = choices1InputField[0].text;
         data.Choices1[1] = choices1InputField[1].text;
