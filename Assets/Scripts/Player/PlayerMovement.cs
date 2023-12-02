@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private LayerMask jumpableGround;
 
-    [SerializeField] private GameObject landSoundEffectObject;
     [SerializeField] private GameObject playerObject;
     [SerializeField] private GameObject explosionAnimationObject;
     [SerializeField] private GameObject playerDeathAnimationObject;
@@ -58,18 +57,22 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-
+        //open coin info and stop player when info text is open!
         if(Input.GetKeyDown(KeyCode.T) && coinsCount > 0)
         {
             if(inventory == true)
             {
                 canvas.gameObject.SetActive(false);
                 inventory = false;
-            }
+
+            }   
             else{
                 Debug.Log("Hi");
                 canvas.gameObject.SetActive(true);
                 inventory = true;
+                rb.velocity = new Vector2(0, rb.velocity.y);
+                dirX = 0;
+                anim.SetBool("running", false);
                 //infoCanvasGroup.alpha = 0;
             }
             
@@ -99,14 +102,17 @@ public class PlayerMovement : MonoBehaviour
         playerPos = transform.position; 
 
         //player movement
-        dirX = Input.GetAxisRaw("Horizontal");
+        if(!inventory){
+            dirX = Input.GetAxisRaw("Horizontal");
 
-        rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
+            rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
 
-        Jump();
+            Jump();
+            
+        }
+
         anim.SetBool("grounded", IsGrounded());
-        
-        UpdateAnimationState();
+        d();
 
         anim.SetFloat("Velocity", rb.velocity.y);
     }
