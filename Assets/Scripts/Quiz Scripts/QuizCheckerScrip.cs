@@ -36,7 +36,14 @@ public class QuizCheckerScrip : MonoBehaviour
     {
         if(currentQuestion >= 5)
         {
-            currentQuestion = 0;
+            //BEWARE !!!!
+            //!!!
+            //!!!!!!!!!
+            // THIS IS NOT WORKING !!!!
+            LoadFromJson();
+
+
+            //currentQuestion = 0;
             NextLevel();
         }
 
@@ -75,10 +82,8 @@ public class QuizCheckerScrip : MonoBehaviour
     //next level function
     public void NextLevel()
     {
-        LoadFromJson();
         Debug.Log("Achievement Unlock !!!!");
-        SceneManager.LoadScene(4);
-        
+        StartCoroutine(FadeToNextScene(3f, 4));       
     }
 
 
@@ -157,6 +162,7 @@ public class QuizCheckerScrip : MonoBehaviour
             Debug.Log(i + " - " + load[i]);
         }
         load[1] = true;
+        load[3] = true;
 
         SaveToJson(load);
  
@@ -174,6 +180,11 @@ public class QuizCheckerScrip : MonoBehaviour
 
         string json = JsonUtility.ToJson(data,true);
         File.WriteAllText(Application.dataPath + "/json/AchievementJSON.json", json);
+    }
+    IEnumerator FadeToNextScene(float waitTime, int sceneIndex)
+    {
+        yield return new WaitForSeconds(waitTime);  
+        SceneManager.LoadScene(sceneIndex); 
     }
 
 }
