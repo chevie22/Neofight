@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 public class QuizCheckerScrip : MonoBehaviour
 {
-    private int correctAnswerNumber;
+    [SerializeField] private PlayerMovement PMS;
     //private string[] questionTexts;
 
     //[SerializeField] GameObject[] questionPrompts;
@@ -18,6 +18,7 @@ public class QuizCheckerScrip : MonoBehaviour
     public TMPro.TextMeshProUGUI buttonText3;
     public TMPro.TextMeshProUGUI buttonText4;
 
+    private int correctAnswerNumber;
     int answerPressed = -1;
     int currentQuestion = 0;
     bool ifPressed = false;
@@ -33,6 +34,12 @@ public class QuizCheckerScrip : MonoBehaviour
 
     void Update()
     {
+        if(currentQuestion >= 5)
+        {
+            currentQuestion = 0;
+            NextLevel();
+        }
+
         if (ifPressed)
         {
             if(answerPressed == correctAnswerNumber) 
@@ -51,26 +58,27 @@ public class QuizCheckerScrip : MonoBehaviour
         //    NextQuestion();
         //}
         //if all questions are answered correctly, proceed to next level
-        if(currentQuestion >= 5)
-        {
-            NextLevel();
-            currentQuestion = 0;
-        }
     }
 
     //next question function
     public void NextQuestion()
     {
-        answerPressed = -1;
-        ifPressed = false;
-        currentQuestion++;
-        DisplayInformation();
-        Debug.Log("SEIKAI!!");
+        if(currentQuestion < 5)
+        {
+            answerPressed = -1;
+            ifPressed = false;
+            currentQuestion++;
+            DisplayInformation();
+            Debug.Log("SEIKAI!!");
+        }
     }
     //next level function
     public void NextLevel()
     {
+        LoadFromJson();
+        Debug.Log("Achievement Unlock !!!!");
         SceneManager.LoadScene(4);
+        
     }
 
 
@@ -134,6 +142,40 @@ public class QuizCheckerScrip : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
     }
+
+     public void LoadFromJson()
+    {
+        //load json file
+        string json = File.ReadAllText(Application.dataPath + "/json/AchievementJSON.json");
+        AchievementJson data = JsonUtility.FromJson<AchievementJson>(json);
+
+        bool[] load;
+        load = new bool[4];
+        for(int i = 0; i < 4; i++)
+        {
+            load[i] = data.achievementUnlock[i];
+            Debug.Log(i + " - " + load[i]);
+        }
+        load[1] = true;
+
+        SaveToJson(load);
+ 
+    }
+     public void SaveToJson(bool[] load)
+    {
+        AchievementJson data = new AchievementJson();
+        data.achievementUnlock = new bool[4];
+
+        for(int i = 0; i < 4; i++)
+        {
+            data.achievementUnlock[i] = load[i];
+            Debug.Log(i + " ---- " + data.achievementUnlock[i]);
+        }
+
+        string json = JsonUtility.ToJson(data,true);
+        File.WriteAllText(Application.dataPath + "/json/AchievementJSON.json", json);
+    }
+
 }
 
 //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

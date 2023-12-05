@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -43,6 +44,9 @@ public class PlayerMovement : MonoBehaviour
     public int coinsCount = 0;
     private bool inventory = false;
 
+    //achievement
+    [SerializeField] public bool[] achievementUnlock;
+
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +55,9 @@ public class PlayerMovement : MonoBehaviour
         coll = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        achievementUnlock = new bool[4];
+        achievementUnlock[0] = true;
+        SaveToJson();
 
     }
 
@@ -112,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         anim.SetBool("grounded", IsGrounded());
-        d();
+        //d();
 
         anim.SetFloat("Velocity", rb.velocity.y);
     }
@@ -165,4 +172,18 @@ public class PlayerMovement : MonoBehaviour
             coinCollectSoundEffect.Play();
         }
     }
+
+    public void SaveToJson()
+    {
+        AchievementJson data = new AchievementJson();
+        data.achievementUnlock = new bool[4];
+        for(int i = 0; i < 4; i++)
+        {
+            data.achievementUnlock[i] = achievementUnlock[i];
+        }
+
+        string json = JsonUtility.ToJson(data,true);
+        File.WriteAllText(Application.dataPath + "/json/AchievementJSON.json", json);
+    }
 }
+

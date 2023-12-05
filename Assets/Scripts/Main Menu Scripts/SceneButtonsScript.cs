@@ -37,6 +37,12 @@ public class SceneButtonsScript : MonoBehaviour
         StartCoroutine(FadeToNextScene(2f, 1));
     }
 
+    public void Achievements()
+    {
+        buttonPressed = true;
+        StartCoroutine(FadeToNextScene(2f, 5));
+    }
+
     public void BackToMainMenu()
     {
         SceneManager.LoadScene(0);
