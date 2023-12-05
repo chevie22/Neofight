@@ -40,7 +40,9 @@ public class QuizCheckerScrip : MonoBehaviour
             //!!!
             //!!!!!!!!!
             // THIS IS NOT WORKING !!!!
-            LoadFromJson();
+            //JSON
+            //index 1 achievement = first level clear
+            LoadFromJson(1);
 
 
             //currentQuestion = 0;
@@ -83,7 +85,7 @@ public class QuizCheckerScrip : MonoBehaviour
     public void NextLevel()
     {
         Debug.Log("Achievement Unlock !!!!");
-        StartCoroutine(FadeToNextScene(3f, 4));       
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);      
     }
 
 
@@ -148,7 +150,10 @@ public class QuizCheckerScrip : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
     }
 
-     public void LoadFromJson()
+    //achievements JSON
+    //just copy paste
+    //the index is the achievement index
+    public void LoadFromJson(int index)
     {
         //load json file
         string json = File.ReadAllText(Application.dataPath + "/json/AchievementJSON.json");
@@ -159,15 +164,13 @@ public class QuizCheckerScrip : MonoBehaviour
         for(int i = 0; i < 4; i++)
         {
             load[i] = data.achievementUnlock[i];
-            Debug.Log(i + " - " + load[i]);
         }
-        load[1] = true;
-        load[3] = true;
+        load[index] = true;
 
         SaveToJson(load);
- 
     }
-     public void SaveToJson(bool[] load)
+
+    public void SaveToJson(bool[] load)
     {
         AchievementJson data = new AchievementJson();
         data.achievementUnlock = new bool[4];
@@ -175,16 +178,10 @@ public class QuizCheckerScrip : MonoBehaviour
         for(int i = 0; i < 4; i++)
         {
             data.achievementUnlock[i] = load[i];
-            Debug.Log(i + " ---- " + data.achievementUnlock[i]);
         }
 
         string json = JsonUtility.ToJson(data,true);
         File.WriteAllText(Application.dataPath + "/json/AchievementJSON.json", json);
-    }
-    IEnumerator FadeToNextScene(float waitTime, int sceneIndex)
-    {
-        yield return new WaitForSeconds(waitTime);  
-        SceneManager.LoadScene(sceneIndex); 
     }
 
 }

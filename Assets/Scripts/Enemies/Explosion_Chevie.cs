@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class Explosion_Chevie : MonoBehaviour
 {
@@ -29,6 +30,44 @@ public class Explosion_Chevie : MonoBehaviour
             playerObjectRb.velocity = new Vector2(playerObjectRb.velocity.x, 8.5f);
             Instantiate(explosionAnimationObject, transform.position, transform.rotation);
             Destroy(transform.parent.gameObject);
+
+            ////JSON
+            //index 2 achievement = first kill
+            LoadFromJson(2);
         }
+    }
+
+    //achievements JSON
+    //just copy paste
+    //the index is the achievement index
+    public void LoadFromJson(int index)
+    {
+        //load json file
+        string json = File.ReadAllText(Application.dataPath + "/json/AchievementJSON.json");
+        AchievementJson data = JsonUtility.FromJson<AchievementJson>(json);
+
+        bool[] load;
+        load = new bool[4];
+        for(int i = 0; i < 4; i++)
+        {
+            load[i] = data.achievementUnlock[i];
+        }
+        load[index] = true;
+
+        SaveToJson(load);
+    }
+
+    public void SaveToJson(bool[] load)
+    {
+        AchievementJson data = new AchievementJson();
+        data.achievementUnlock = new bool[4];
+
+        for(int i = 0; i < 4; i++)
+        {
+            data.achievementUnlock[i] = load[i];
+        }
+
+        string json = JsonUtility.ToJson(data,true);
+        File.WriteAllText(Application.dataPath + "/json/AchievementJSON.json", json);
     }
 }

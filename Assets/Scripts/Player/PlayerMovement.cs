@@ -57,8 +57,11 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         achievementUnlock = new bool[4];
-        achievementUnlock[0] = true;
-        if(SceneManager.GetActiveScene().buildIndex == 2)SaveToJson();
+
+        //JSON
+        //index 0 achievement = player achievement
+        LoadFromJson(0);
+        //if(SceneManager.GetActiveScene().buildIndex == 2)SaveToJson(0);
 
     }
 
@@ -116,6 +119,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
 
             Jump();
+            UpdateAnimationState();
             
         }
 
@@ -174,13 +178,37 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void SaveToJson()
+
+
+
+    //achievements JSON
+    //just copy paste
+    //the index is the achievement index
+    public void LoadFromJson(int index)
+    {
+        //load json file
+        string json = File.ReadAllText(Application.dataPath + "/json/AchievementJSON.json");
+        AchievementJson data = JsonUtility.FromJson<AchievementJson>(json);
+
+        bool[] load;
+        load = new bool[4];
+        for(int i = 0; i < 4; i++)
+        {
+            load[i] = data.achievementUnlock[i];
+        }
+        load[index] = true;
+
+        SaveToJson(load);
+    }
+
+    public void SaveToJson(bool[] load)
     {
         AchievementJson data = new AchievementJson();
         data.achievementUnlock = new bool[4];
+
         for(int i = 0; i < 4; i++)
         {
-            data.achievementUnlock[i] = achievementUnlock[i];
+            data.achievementUnlock[i] = load[i];
         }
 
         string json = JsonUtility.ToJson(data,true);

@@ -10,12 +10,18 @@ public class Enemy_Movement : MonoBehaviour
     private Animator anim;
     private Transform currentPoint;
     public float speed;
-
+    private Transform myTransform;
+    private Vector2 scale2D;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         currentPoint = pointB.transform;
+
+        myTransform = transform;
+        scale2D = myTransform.localScale;
+
+        
     }
 
     private void Update()
@@ -33,11 +39,13 @@ public class Enemy_Movement : MonoBehaviour
         if(Vector2.Distance(transform.position, currentPoint.position) < 1f && currentPoint == pointB.transform)
         {
             currentPoint = pointA.transform;
+            myTransform.localScale = new Vector2(scale2D.x *1, scale2D.y);
         }
 
         if (Vector2.Distance(transform.position, currentPoint.position) < 1f && currentPoint == pointA.transform)
         {
             currentPoint = pointB.transform;
+            myTransform.localScale = new Vector2(scale2D.x *-1, scale2D.y);
         }
 
 
