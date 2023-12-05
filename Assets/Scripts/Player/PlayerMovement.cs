@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -57,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         achievementUnlock = new bool[4];
         achievementUnlock[0] = true;
-        SaveToJson();
+        if(SceneManager.GetActiveScene().buildIndex == 2)SaveToJson();
 
     }
 
