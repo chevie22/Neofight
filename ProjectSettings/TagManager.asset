@@ -9,6 +9,8 @@ TagManager:
   - stomphitbox
   - Keys
   - Secret
+  - NPC
+  - Currency
   layers:
   - Default
   - TransparentFX

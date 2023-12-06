@@ -38,7 +38,7 @@ public class SceneButtonsScript : MonoBehaviour
     public void StartGame()
     {
         buttonPressed = true;
-        StartCoroutine(FadeToNextScene(2f, 2));
+        StartCoroutine(FadeToNextScene(2f, 6));
     }
 
     public void EditQuizAndInfo()

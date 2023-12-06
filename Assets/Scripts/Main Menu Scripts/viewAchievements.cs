@@ -39,12 +39,4 @@ public class viewAchievements : MonoBehaviour
  
 
     }
-
-
-
-    IEnumerator FadeToNextScene(float waitTime, int sceneIndex)
-    {
-        yield return new WaitForSeconds(waitTime);  
-        SceneManager.LoadScene(sceneIndex); 
-    }
 }
