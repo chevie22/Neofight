@@ -1,0 +1,14 @@
+{
+    "achievementUnlock": [
+        false,
+        false,
+        false,
+        false
+    ],
+    "achievementNotify": [
+        false,
+        false,
+        false,
+        false
+    ]
+}

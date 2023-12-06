@@ -61,7 +61,6 @@ public class SceneButtonsScript : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-        UnityEditor.EditorApplication.isPlaying = false;
     }
 
     IEnumerator FadeToNextScene(float waitTime, int sceneIndex)

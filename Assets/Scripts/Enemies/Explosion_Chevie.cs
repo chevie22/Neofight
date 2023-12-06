@@ -8,9 +8,9 @@ public class Explosion_Chevie : MonoBehaviour
 {
     private Rigidbody2D playerObjectRb;
 
-    [SerializeField] private GameObject explosionAnimationObject;
-    [SerializeField] private GameObject playerObject;
-    [SerializeField] private SpriteRenderer catSr;
+    public GameObject explosionAnimationObject;
+    public GameObject playerObject;
+    public SpriteRenderer catSr;
 
     //achievement
     [SerializeField] public GameObject panel;
@@ -34,14 +34,16 @@ public class Explosion_Chevie : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            ///JSON
-            //index 2 achievement = cat slayer
-            LoadFromJson(2);
-            playerObjectRb.velocity = new Vector2(playerObjectRb.velocity.x, 8.5f);
-            //Instantiate(explosionAnimationObject, transform.position, transform.rotation);
             explosionAnimationObject.transform.position = transform.position;
             explosionAnimationObject.SetActive(true);
             Destroy(transform.parent.gameObject);
+            playerObjectRb.velocity = new Vector2(playerObjectRb.velocity.x, 8.5f);
+            ///JSON
+            //index 2 achievement = cat slayer
+            LoadFromJson(2);
+
+            //Instantiate(explosionAnimationObject, transform.position, transform.rotation);
+
             
 
             //catSr.color = new Color(255, 255, 255, 0);
