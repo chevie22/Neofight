@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.SceneManagement;
+using UnityEditor.Toolbars;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D coll;
     private Animator anim;
     private SpriteRenderer sprite;
+    private SpriteRenderer aButtonSR;
+    private SpriteRenderer dButtonSR;
+    private SpriteRenderer spaceButtonSR;
 
     [SerializeField] private LayerMask jumpableGround;
 
@@ -22,10 +26,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject menuUI;
     [SerializeField] private GameObject canvas;
     [SerializeField] private GameObject test123123;
+    [SerializeField] private GameObject eButton;
+    [SerializeField] private GameObject aTutorialButton;
+    [SerializeField] private GameObject dTutorialButton;
+    [SerializeField] private GameObject spaceTutorialButton;
 
     [SerializeField] private AudioSource jumpSoundEffect;
     [SerializeField] private AudioSource landSoundEffect;
     [SerializeField] private AudioSource coinCollectSoundEffect;
+
     
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float moveSpeed = 10f;
@@ -40,6 +49,10 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 playerPos;
     private Vector2 explosionPos;
     private bool playerDead = false;
+
+    private bool fadeTutorialNow = false;
+    public float movementTutorialRateOfFade = 1f;
+    private float movementTutorialAlpha = 1f;
 
     //keys variable
     public int coinsCount = 0;
@@ -59,13 +72,27 @@ public class PlayerMovement : MonoBehaviour
         coll = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
-
-
+        aButtonSR = aTutorialButton.GetComponent<SpriteRenderer>();
+        dButtonSR = dTutorialButton.GetComponent<SpriteRenderer>();
+        spaceButtonSR = spaceTutorialButton.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {   
+        if(dirX > 0 || dirX < 0)
+        {
+            StartCoroutine(TurnOffMovementTutorial(3));
+        }
+
+        if(fadeTutorialNow && movementTutorialAlpha >= 0)
+        {
+            movementTutorialAlpha -= (Time.deltaTime * movementTutorialRateOfFade);
+            aButtonSR.color = new Color(1, 1, 1, movementTutorialAlpha);
+            dButtonSR.color = new Color(255, 255, 255, movementTutorialAlpha);
+            spaceButtonSR.color = new Color(255, 255, 255, movementTutorialAlpha);
+        }
+
         //open coin info and stop player when info text is open!
         if(Input.GetKeyDown(KeyCode.T) && coinsCount > 0)
         {
@@ -174,6 +201,19 @@ public class PlayerMovement : MonoBehaviour
             Destroy(other.gameObject);
             coinCollectSoundEffect.Play();
         }
+
+        if(other.CompareTag("NPC"))
+        {
+            eButton.SetActive(true);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.CompareTag("NPC"))
+        {
+            eButton.SetActive(false);
+        }
     }
 
 
@@ -238,6 +278,12 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(waitTime); 
         Debug.Log("open animator"); 
         animator.SetBool("open", false);
+    }
+
+    IEnumerator TurnOffMovementTutorial(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        fadeTutorialNow = true;
     }
 }
 

@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Toolbars;
 using UnityEngine;
 
 public class EagleCollider : MonoBehaviour
 {
+    public GameObject eButton;
+
     public GameObject player;
     private bool collided = false;
     public GameObject canvas;
@@ -16,17 +19,15 @@ public class EagleCollider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if(Input.GetKeyDown(KeyCode.E) && collided)
         {
             if(collided)
             {
                 canvas.gameObject.SetActive(true);
-                collided = false;
             }
             else
             {
                 canvas.gameObject.SetActive(false);
-                collided = true;
             }
 
         }
@@ -43,7 +44,6 @@ public class EagleCollider : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            canvas.gameObject.SetActive(true);
             canvas.gameObject.SetActive(false);
             collided = false;  
         }

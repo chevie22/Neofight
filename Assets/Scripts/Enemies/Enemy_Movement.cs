@@ -12,6 +12,7 @@ public class Enemy_Movement : MonoBehaviour
     public float speed;
     private Transform myTransform;
     private Vector2 scale2D;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -21,7 +22,6 @@ public class Enemy_Movement : MonoBehaviour
         myTransform = transform;
         scale2D = myTransform.localScale;
 
-        
     }
 
     private void Update()
