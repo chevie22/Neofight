@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 319790355}
   - component: {fileID: 319790354}
   m_Layer: 5
-  m_Name: Description
+  m_Name: Title achievement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1543,6 +1543,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuCanvasGroup: {fileID: 341251842}
   panel: {fileID: 203605210}
+  newAchievement:
+  - {fileID: 11400000, guid: 5d4f278f2e365c648b38b1cbeabac2fb, type: 2}
+  - {fileID: 11400000, guid: 49c6e498ecc2b5e418d511c49c51eaa6, type: 2}
+  - {fileID: 11400000, guid: 30654d7e8c05be8498032cde8200574c, type: 2}
+  - {fileID: 11400000, guid: 3f0d650382b9bd54ba0adeb3f023d6ae, type: 2}
+  title: {fileID: 319790354}
 --- !u!1 &1199325080
 GameObject:
   m_ObjectHideFlags: 0

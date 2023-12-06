@@ -1,46 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using System.IO;
-
-public class Explosion_Chevie : MonoBehaviour
-{
-    private Rigidbody2D playerObjectRb;
-
-    [SerializeField] private GameObject explosionAnimationObject;
-    [SerializeField] private GameObject playerObject;
-
+ this is the code to save and load from Json
+ make sure to fill in the reference in the inspector of the object attached
+ make sure to call the right index for achievement
+ just copy paste everything
+ make sure to copy paste the reference in reference area
+ make sure to copy paste the call method in where it should be
+  make sure to copy paste the main method inside the MonoBehaviour class, recommend to paste at the end
+ 
+ 
+ //REFERENCE
     //achievement
     [SerializeField] public GameObject panel;
     public CreateAchievement[] newAchievement;
-    public TMPro.TextMeshProUGUI title; 
+    public TMPro.TextMeshProUGUI title;   
+    
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        playerObjectRb = playerObject.GetComponent<Rigidbody2D>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-            ///JSON
+//CALL METHOD
+            //JSON
+            //index 0 achievement = player
+            //index 1 achievement = first level clear
             //index 2 achievement = cat slayer
-            LoadFromJson(2);
-            playerObjectRb.velocity = new Vector2(playerObjectRb.velocity.x, 8.5f);
-            Instantiate(explosionAnimationObject, transform.position, transform.rotation);
-            Destroy(transform.parent.gameObject);
-        }
-    }
+            //index 3 achievement = secret portal
+            LoadFromJson(this is 0 to 3);
+    
+    
+    
+    
+    
+//MAIN CODE
 
     //achievements JSON
     //just copy paste
@@ -62,6 +48,7 @@ public class Explosion_Chevie : MonoBehaviour
         }
         loadData[index] = true;
 
+        //if they got the achievement but no notification then notify
         if (loadData[index] && !loadNotify[index])
         {
             Debug.Log("open panel");
@@ -72,8 +59,6 @@ public class Explosion_Chevie : MonoBehaviour
                 title.text = newAchievement[index].name;
                 animator.SetBool("open", true);
                 loadNotify[index] = true;
-                
-                //wait for a few seconds before pop-up disappear
                 StartCoroutine(AchievementNotify(5, animator));
             }
 
@@ -104,4 +89,29 @@ public class Explosion_Chevie : MonoBehaviour
         Debug.Log("open animator"); 
         animator.SetBool("open", false);
     }
+
+
+
+
+
+
+
+
+    //not included in copy paste
+    // i repeat, NO DOT COPY PASTE
+    //this is the default json file
+
+    {
+    "achievementUnlock": [
+        false,
+        false,
+        false,
+        false
+    ],
+    "achievementNotify": [
+        false,
+        false,
+        false,
+        false
+    ]
 }

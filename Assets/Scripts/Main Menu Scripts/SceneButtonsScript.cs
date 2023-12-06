@@ -7,10 +7,16 @@ using System.IO;
 public class SceneButtonsScript : MonoBehaviour
 {
     [SerializeField] CanvasGroup mainMenuCanvasGroup;
-    [SerializeField] public GameObject panel;
     
     private float rateOfFade = 0.8f;
     private bool buttonPressed = false;
+
+
+    //achievement
+    [SerializeField] public GameObject panel;
+    public CreateAchievement[] newAchievement;
+    public TMPro.TextMeshProUGUI title;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,21 +33,6 @@ public class SceneButtonsScript : MonoBehaviour
             mainMenuCanvasGroup.alpha -= (Time.deltaTime * rateOfFade);
         }
 
-    }
-
-    public void OpenPanel()
-    {
-        if (panel != null)
-        {
-            Debug.Log("open panel");
-            Animator animator = panel.GetComponent<Animator>();
-            if(animator != null)
-            {
-                Debug.Log("open animator");
-                bool isOpen = animator.GetBool("open");
-                animator.SetBool("open", !isOpen);
-            }
-        }
     }
 
     public void StartGame()
@@ -101,13 +92,15 @@ public class SceneButtonsScript : MonoBehaviour
         }
         loadData[index] = true;
 
-        //acheievement 0 = Player;
+        //if they got the achievement but no notification then notify
         if (loadData[index] && !loadNotify[index])
         {
             Debug.Log("open panel");
             Animator animator = panel.GetComponent<Animator>();
             if(animator != null)
             {
+                //pop notification of new achievement
+                title.text = newAchievement[index].name;
                 animator.SetBool("open", true);
                 loadNotify[index] = true;
                 StartCoroutine(AchievementNotify(5, animator));

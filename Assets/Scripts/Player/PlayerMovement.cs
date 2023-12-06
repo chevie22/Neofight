@@ -46,7 +46,10 @@ public class PlayerMovement : MonoBehaviour
     private bool inventory = false;
 
     //achievement
-    [SerializeField] public bool[] achievementUnlock;
+    [SerializeField] public GameObject panel;
+    public CreateAchievement[] newAchievement;
+    public TMPro.TextMeshProUGUI title;
+
 
 
     // Start is called before the first frame update
@@ -56,7 +59,6 @@ public class PlayerMovement : MonoBehaviour
         coll = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
-        achievementUnlock = new bool[4];
 
 
     }
@@ -175,8 +177,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-
-
     //achievements JSON
     //just copy paste
     //the index is the achievement index
@@ -186,29 +186,58 @@ public class PlayerMovement : MonoBehaviour
         string json = File.ReadAllText(Application.dataPath + "/json/AchievementJSON.json");
         AchievementJson data = JsonUtility.FromJson<AchievementJson>(json);
 
-        bool[] load;
-        load = new bool[4];
+        bool[] loadData;
+        bool[] loadNotify;
+        loadData = new bool[4];
+        loadNotify = new bool[4];
         for(int i = 0; i < 4; i++)
         {
-            load[i] = data.achievementUnlock[i];
+            loadData[i] = data.achievementUnlock[i];
+            loadNotify[i] = data.achievementNotify[i];
         }
-        load[index] = true;
+        loadData[index] = true;
 
-        SaveToJson(load);
+        //acheievement 0 = Player;
+        // achievement first time completion
+        if (loadData[index] && !loadNotify[index])
+        {
+            Debug.Log("open panel");
+            Animator animator = panel.GetComponent<Animator>();
+            if(animator != null)
+            {
+                //pop notification of new achievement
+                title.text = newAchievement[index].name;
+                animator.SetBool("open", true);
+                loadNotify[index] = true;
+                StartCoroutine(AchievementNotify(5, animator));
+            }
+
+        }
+
+        SaveToJson(loadData, loadNotify);
     }
 
-    public void SaveToJson(bool[] load)
+    public void SaveToJson(bool[] loadData, bool[]loadNotify)
     {
         AchievementJson data = new AchievementJson();
         data.achievementUnlock = new bool[4];
+        data.achievementNotify = new bool[4];
 
         for(int i = 0; i < 4; i++)
         {
-            data.achievementUnlock[i] = load[i];
+            data.achievementUnlock[i] = loadData[i];
+            data.achievementNotify[i] = loadNotify[i];
         }
 
         string json = JsonUtility.ToJson(data,true);
         File.WriteAllText(Application.dataPath + "/json/AchievementJSON.json", json);
+    }
+
+    IEnumerator AchievementNotify(float waitTime, Animator animator)
+    {
+        yield return new WaitForSeconds(waitTime); 
+        Debug.Log("open animator"); 
+        animator.SetBool("open", false);
     }
 }
 

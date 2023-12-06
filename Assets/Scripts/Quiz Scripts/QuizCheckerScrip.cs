@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class QuizCheckerScrip : MonoBehaviour
 {
     [SerializeField] private PlayerMovement PMS;
+    [SerializeField] public GameObject QuizUI;
     //private string[] questionTexts;
 
     //[SerializeField] GameObject[] questionPrompts;
@@ -23,6 +24,15 @@ public class QuizCheckerScrip : MonoBehaviour
     int currentQuestion = 0;
     bool ifPressed = false;
     bool entryInput = true;
+
+    //achievement
+    [SerializeField] public GameObject panel;
+    public CreateAchievement[] newAchievement;
+    public TMPro.TextMeshProUGUI title;
+
+    //Loading bar
+    [SerializeField] public GameObject loadingBar;
+    [SerializeField] public GameObject loadingStatus;
 
 
 
@@ -84,8 +94,15 @@ public class QuizCheckerScrip : MonoBehaviour
     //next level function
     public void NextLevel()
     {
+        //go to the next lvl
         Debug.Log("Achievement Unlock !!!!");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);      
+        QuizUI.gameObject.SetActive(false);
+        loadingBar.gameObject.SetActive(true);
+        Animator animator = loadingStatus.GetComponent<Animator>();
+        animator.SetBool("loading", true);
+
+        StartCoroutine(WaitforNextScene(6, SceneManager.GetActiveScene().buildIndex+1));
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);      
     }
 
 
@@ -159,31 +176,65 @@ public class QuizCheckerScrip : MonoBehaviour
         string json = File.ReadAllText(Application.dataPath + "/json/AchievementJSON.json");
         AchievementJson data = JsonUtility.FromJson<AchievementJson>(json);
 
-        bool[] load;
-        load = new bool[4];
+        bool[] loadData;
+        bool[] loadNotify;
+        loadData = new bool[4];
+        loadNotify = new bool[4];
         for(int i = 0; i < 4; i++)
         {
-            load[i] = data.achievementUnlock[i];
+            loadData[i] = data.achievementUnlock[i];
+            loadNotify[i] = data.achievementNotify[i];
         }
-        load[index] = true;
+        loadData[index] = true;
 
-        SaveToJson(load);
+        //acheievement 0 = Player;
+        // achievement first time completion
+        if (loadData[index] && !loadNotify[index])
+        {
+            Debug.Log("open panel");
+            Animator animator = panel.GetComponent<Animator>();
+            if(animator != null)
+            {
+                //pop notification of new achievement
+                title.text = newAchievement[index].name;
+                animator.SetBool("open", true);
+                loadNotify[index] = true;
+                StartCoroutine(AchievementNotify(5, animator));
+            }
+
+        }
+
+        SaveToJson(loadData, loadNotify);
     }
 
-    public void SaveToJson(bool[] load)
+    public void SaveToJson(bool[] loadData, bool[]loadNotify)
     {
         AchievementJson data = new AchievementJson();
         data.achievementUnlock = new bool[4];
+        data.achievementNotify = new bool[4];
 
         for(int i = 0; i < 4; i++)
         {
-            data.achievementUnlock[i] = load[i];
+            data.achievementUnlock[i] = loadData[i];
+            data.achievementNotify[i] = loadNotify[i];
         }
 
         string json = JsonUtility.ToJson(data,true);
         File.WriteAllText(Application.dataPath + "/json/AchievementJSON.json", json);
     }
 
+    IEnumerator AchievementNotify(float waitTime, Animator animator)
+    {
+        yield return new WaitForSeconds(waitTime); 
+        Debug.Log("open animator"); 
+        animator.SetBool("open", false);
+    }
+
+     IEnumerator WaitforNextScene(float waitTime, int n)
+    {
+        yield return new WaitForSeconds(waitTime); 
+        SceneManager.LoadScene(n);
+    }
 }
 
 //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
