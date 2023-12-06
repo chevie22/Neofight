@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class SceneButtonsScript : MonoBehaviour
 {
     [SerializeField] CanvasGroup mainMenuCanvasGroup;
+    [SerializeField] public GameObject panel;
     
     private float rateOfFade = 0.8f;
     private bool buttonPressed = false;
     // Start is called before the first frame update
     void Start()
     {
-        
+        //JSON
+        //index 0 achievement = player achievement
+        LoadFromJson(0);
     }
 
     // Update is called once per frame
@@ -23,6 +27,21 @@ public class SceneButtonsScript : MonoBehaviour
             mainMenuCanvasGroup.alpha -= (Time.deltaTime * rateOfFade);
         }
 
+    }
+
+    public void OpenPanel()
+    {
+        if (panel != null)
+        {
+            Debug.Log("open panel");
+            Animator animator = panel.GetComponent<Animator>();
+            if(animator != null)
+            {
+                Debug.Log("open animator");
+                bool isOpen = animator.GetBool("open");
+                animator.SetBool("open", !isOpen);
+            }
+        }
     }
 
     public void StartGame()
@@ -58,5 +77,67 @@ public class SceneButtonsScript : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);  
         SceneManager.LoadScene(sceneIndex); 
+    }
+
+
+
+    //achievements JSON
+    //just copy paste
+    //the index is the achievement index
+    public void LoadFromJson(int index)
+    {
+        //load json file
+        string json = File.ReadAllText(Application.dataPath + "/json/AchievementJSON.json");
+        AchievementJson data = JsonUtility.FromJson<AchievementJson>(json);
+
+        bool[] loadData;
+        bool[] loadNotify;
+        loadData = new bool[4];
+        loadNotify = new bool[4];
+        for(int i = 0; i < 4; i++)
+        {
+            loadData[i] = data.achievementUnlock[i];
+            loadNotify[i] = data.achievementNotify[i];
+        }
+        loadData[index] = true;
+
+        //acheievement 0 = Player;
+        if (loadData[index] && !loadNotify[index])
+        {
+            Debug.Log("open panel");
+            Animator animator = panel.GetComponent<Animator>();
+            if(animator != null)
+            {
+                animator.SetBool("open", true);
+                loadNotify[index] = true;
+                StartCoroutine(AchievementNotify(5, animator));
+            }
+
+        }
+
+        SaveToJson(loadData, loadNotify);
+    }
+
+    public void SaveToJson(bool[] loadData, bool[]loadNotify)
+    {
+        AchievementJson data = new AchievementJson();
+        data.achievementUnlock = new bool[4];
+        data.achievementNotify = new bool[4];
+
+        for(int i = 0; i < 4; i++)
+        {
+            data.achievementUnlock[i] = loadData[i];
+            data.achievementNotify[i] = loadNotify[i];
+        }
+
+        string json = JsonUtility.ToJson(data,true);
+        File.WriteAllText(Application.dataPath + "/json/AchievementJSON.json", json);
+    }
+
+    IEnumerator AchievementNotify(float waitTime, Animator animator)
+    {
+        yield return new WaitForSeconds(waitTime); 
+        Debug.Log("open animator"); 
+        animator.SetBool("open", false);
     }
 }

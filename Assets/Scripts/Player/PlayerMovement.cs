@@ -58,10 +58,6 @@ public class PlayerMovement : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         achievementUnlock = new bool[4];
 
-        //JSON
-        //index 0 achievement = player achievement
-        LoadFromJson(0);
-        //if(SceneManager.GetActiveScene().buildIndex == 2)SaveToJson(0);
 
     }
 
