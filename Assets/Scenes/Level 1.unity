@@ -13184,7 +13184,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000030517578, y: -110.000015}
+  m_AnchoredPosition: {x: 0, y: -110}
   m_SizeDelta: {x: -270.705, y: -259.519}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &709733183
@@ -13854,7 +13854,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000030517578, y: 275.99997}
+  m_AnchoredPosition: {x: 0, y: 275.99997}
   m_SizeDelta: {x: -323.3314, y: -371.831}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &858222562
@@ -18134,6 +18134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionAnimationObject: {fileID: 7153415123897407422, guid: a071e191afa4b8d4bafbbdfc66b4f57d, type: 3}
   playerObject: {fileID: 1240120748}
+  catSr: {fileID: 3715587536566510420}
   panel: {fileID: 858222560}
   newAchievement:
   - {fileID: 11400000, guid: 5d4f278f2e365c648b38b1cbeabac2fb, type: 2}

@@ -9,8 +9,7 @@ public class viewAchievements : MonoBehaviour
     [SerializeField] private GameObject[] starsObject;
     [SerializeField] private buttonAchievements button;
     
-    private float rateOfFade = 0.8f;
-    private bool buttonPressed = false;
+
     private bool dialogOn = false;
     // Start is called before the first frame update
     void Start()

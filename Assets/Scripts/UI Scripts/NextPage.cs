@@ -6,10 +6,7 @@ public class NextPage : MonoBehaviour
 {
     [SerializeField] private CanvasGroup[] canvasGroup;
     [SerializeField] private GameObject[] pageObject;
-
-    [SerializeField] private float alphaOpacity = 0.5f;
     [SerializeField] private float rateOfFade = 0.2f;
-    [SerializeField] private float waitForFade = 0f;
 
     private bool nextPressed = false;
     private bool previousPressed = false;

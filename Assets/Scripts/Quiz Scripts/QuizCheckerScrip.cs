@@ -23,7 +23,6 @@ public class QuizCheckerScrip : MonoBehaviour
     int answerPressed = -1;
     int currentQuestion = 0;
     bool ifPressed = false;
-    bool entryInput = true;
 
     //achievement
     [SerializeField] public GameObject panel;

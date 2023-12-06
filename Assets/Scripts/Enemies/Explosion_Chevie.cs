@@ -10,6 +10,7 @@ public class Explosion_Chevie : MonoBehaviour
 
     [SerializeField] private GameObject explosionAnimationObject;
     [SerializeField] private GameObject playerObject;
+    [SerializeField] private SpriteRenderer catSr;
 
     //achievement
     [SerializeField] public GameObject panel;
@@ -37,8 +38,14 @@ public class Explosion_Chevie : MonoBehaviour
             //index 2 achievement = cat slayer
             LoadFromJson(2);
             playerObjectRb.velocity = new Vector2(playerObjectRb.velocity.x, 8.5f);
-            Instantiate(explosionAnimationObject, transform.position, transform.rotation);
+            //Instantiate(explosionAnimationObject, transform.position, transform.rotation);
+            explosionAnimationObject.transform.position = transform.position;
+            explosionAnimationObject.SetActive(true);
             Destroy(transform.parent.gameObject);
+            
+
+            //catSr.color = new Color(255, 255, 255, 0);
+            //this.gameObject.transform.parent.gameObject.SetActive(false);
         }
     }
 
@@ -103,5 +110,6 @@ public class Explosion_Chevie : MonoBehaviour
         yield return new WaitForSeconds(waitTime); 
         Debug.Log("open animator"); 
         animator.SetBool("open", false);
+        Destroy(transform.parent.gameObject);
     }
 }

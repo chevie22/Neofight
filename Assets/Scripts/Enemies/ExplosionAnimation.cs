@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class ExplosionAnimation : MonoBehaviour
 {
+    Animator animator;
+
     [SerializeField] private int deathAnimationTimer = 3;
+    [SerializeField] public GameObject panel;
 
     [SerializeField] private AudioSource deathSoundEffect;
 
@@ -17,7 +20,7 @@ public class ExplosionAnimation : MonoBehaviour
     }
     void Start()
     {
-        
+        animator = panel.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -25,14 +28,15 @@ public class ExplosionAnimation : MonoBehaviour
     {
         if (deathSoundEffect.isPlaying)
         {
-            StartCoroutine(WaitBeforeDisable(deathAnimationTimer));
+            StartCoroutine(WaitBeforeDisable(deathAnimationTimer, animator));
         }
     }
 
-    IEnumerator WaitBeforeDisable(int time)
+    IEnumerator WaitBeforeDisable(int time, Animator animator)
     {
         yield return new WaitForSeconds(time);
+        Debug.Log("hi!!!!!!!!!!!!!!!!!!!"); 
+        animator.SetBool("open", false);
         Destroy(gameObject);
-        
     }
 }
