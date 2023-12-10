@@ -3,12 +3,12 @@
         true,
         false,
         true,
-        true
+        false
     ],
     "achievementNotify": [
         true,
         false,
         true,
-        true
+        false
     ]
 }

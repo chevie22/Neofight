@@ -24,10 +24,6 @@ public class EagleCollider : MonoBehaviour
             {
                 canvas.gameObject.SetActive(true);
             }
-            else
-            {
-                canvas.gameObject.SetActive(false);
-            }
 
         }
     }

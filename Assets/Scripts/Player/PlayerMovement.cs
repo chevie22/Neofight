@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,12 +26,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject playerDeathBlurObject;
     [SerializeField] private GameObject playerDeathColorObject;
     [SerializeField] private GameObject menuUI;
+    [SerializeField] private GameObject escapeMenuUi;
     [SerializeField] private GameObject canvas;
     [SerializeField] private GameObject test123123;
     [SerializeField] private GameObject eButton;
     [SerializeField] private GameObject aTutorialButton;
     [SerializeField] private GameObject dTutorialButton;
     [SerializeField] private GameObject spaceTutorialButton;
+    [SerializeField] private CanvasGroup restartCanvasGroup;
+    [SerializeField] private CanvasGroup mainmenuCanvasGroup;
 
     [SerializeField] private AudioSource jumpSoundEffect;
     [SerializeField] private AudioSource landSoundEffect;
@@ -58,6 +62,9 @@ public class PlayerMovement : MonoBehaviour
     //keys variable
     public int coinsCount = 0;
     private bool inventory = false;
+    private bool temp = false;
+    private bool currencyCollision = false;
+    private bool menuUiOn = false;
 
     //achievement
     [SerializeField] public GameObject panel;
@@ -81,6 +88,22 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(menuUiOn)
+            {
+                escapeMenuUi.SetActive(false);
+                menuUiOn = false;
+            }
+            else
+            {
+                escapeMenuUi.SetActive(true);
+                menuUiOn = true;
+            }
+
+
+        }
+
         if(dirX > 0 || dirX < 0)
         {
             StartCoroutine(TurnOffMovementTutorial(3));
@@ -104,13 +127,26 @@ public class PlayerMovement : MonoBehaviour
 
             }   
             else{
-                Debug.Log("Hi");
                 canvas.gameObject.SetActive(true);
                 inventory = true;
                 rb.velocity = new Vector2(0, rb.velocity.y);
                 dirX = 0;
                 anim.SetBool("running", false);
-                //infoCanvasGroup.alpha = 0;
+            }
+            
+        }
+
+        if(Input.GetKeyDown(KeyCode.E) && currencyCollision)
+        {
+            if(temp == true)
+            {
+                temp = false;
+            }   
+            else{
+                temp = true;
+                rb.velocity = new Vector2(0, rb.velocity.y);
+                dirX = 0;
+                anim.SetBool("running", false);
             }
             
         }
@@ -134,12 +170,13 @@ public class PlayerMovement : MonoBehaviour
             Instantiate(playerDeathBlurObject, transform.position, transform.rotation);
             playerDeathColorObject.SetActive(true);
             menuUI.SetActive(true);
+            escapeMenuUi.SetActive(false);
         }
 
         playerPos = transform.position; 
 
         //player movement
-        if(!inventory){
+        if(!inventory && !temp){
             dirX = Input.GetAxisRaw("Horizontal");
 
             rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
@@ -148,6 +185,7 @@ public class PlayerMovement : MonoBehaviour
             UpdateAnimationState();
             
         }
+
 
         anim.SetBool("grounded", IsGrounded());
         //d();
@@ -207,6 +245,12 @@ public class PlayerMovement : MonoBehaviour
         {
             eButton.SetActive(true);
         }
+
+        if (other.CompareTag("Currency"))
+        {
+            currencyCollision = true;
+
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -214,6 +258,11 @@ public class PlayerMovement : MonoBehaviour
         if(other.CompareTag("NPC"))
         {
             eButton.SetActive(false);
+        }
+        if (other.CompareTag("Currency"))
+        {
+            currencyCollision = false;
+
         }
     }
 

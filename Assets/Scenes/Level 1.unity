@@ -10617,6 +10617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb61eeeaea2b4c14b970b7e8f81dfa8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eButton: {fileID: 0}
   player: {fileID: 1240120748}
   canvas: {fileID: 1684712316}
 --- !u!1001 &124393337
@@ -13283,7 +13284,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 100
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -15718,7 +15719,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.03956358, y: 0.057771802}
@@ -16543,12 +16544,17 @@ MonoBehaviour:
   menuUI: {fileID: 940341546}
   canvas: {fileID: 824207245}
   test123123: {fileID: 0}
+  eButton: {fileID: 0}
+  aTutorialButton: {fileID: 0}
+  dTutorialButton: {fileID: 0}
+  spaceTutorialButton: {fileID: 0}
   jumpSoundEffect: {fileID: 1240120757}
   landSoundEffect: {fileID: 1240120758}
   coinCollectSoundEffect: {fileID: 1240120759}
   jumpForce: 11.5
   moveSpeed: 6
   playerHealth: 1
+  movementTutorialRateOfFade: 1
   coinsCount: 0
   panel: {fileID: 0}
   newAchievement:
