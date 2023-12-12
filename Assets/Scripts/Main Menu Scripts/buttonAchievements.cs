@@ -1,9 +1,11 @@
+using System.Net;
 using System.Security.AccessControl;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class buttonAchievements : MonoBehaviour
 {
@@ -11,11 +13,12 @@ public class buttonAchievements : MonoBehaviour
     public int starButtonNum = -1;
     public Image[] image;
     private bool[] load;
+    private string jsonFilePath;
 
     void Start() {
-        image[0].color = new Color32(255,255,255,255);
         //load json file
-        string json = File.ReadAllText(Application.dataPath + "/json/AchievementJSON.json");
+        jsonFilePath = Path.Combine(Application.persistentDataPath, "AchievementJSON.json");
+        string json = File.ReadAllText(jsonFilePath);
         AchievementJson data = JsonUtility.FromJson<AchievementJson>(json);
 
         load = new bool[4];
@@ -46,5 +49,10 @@ public class buttonAchievements : MonoBehaviour
     public void star3()
     {
        if(load[3]) starButtonNum = 3;
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class coinsCountText : MonoBehaviour
+public class coinsCountScript : MonoBehaviour
 {
     public GameObject[] numbers;
     public PlayerMovement playerMovementScript;

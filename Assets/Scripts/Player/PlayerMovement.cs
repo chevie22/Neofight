@@ -71,6 +71,9 @@ public class PlayerMovement : MonoBehaviour
     public CreateAchievement[] newAchievement;
     public TMPro.TextMeshProUGUI title;
 
+    //npc dialog
+    [SerializeField] private GameObject npcDialog;
+
 
 
     // Start is called before the first frame update
@@ -87,7 +90,8 @@ public class PlayerMovement : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   
+    { 
+        //open menu ui  
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             if(menuUiOn)
@@ -135,7 +139,18 @@ public class PlayerMovement : MonoBehaviour
             }
             
         }
+        
+        //when T is pressed, closed the npc dialog
+        //noob npc dialog,
+        //not completely fixed!
+        if(Input.GetKeyDown(KeyCode.T) && npcDialog.activeSelf)
+        {
+            npcDialog.SetActive(false);
+        }
 
+
+
+        //temp
         if(Input.GetKeyDown(KeyCode.E) && currencyCollision)
         {
             if(temp == true)

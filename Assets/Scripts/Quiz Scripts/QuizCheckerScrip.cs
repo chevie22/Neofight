@@ -1,3 +1,5 @@
+using System.Net.Mime;
+using System.Net;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,11 +34,18 @@ public class QuizCheckerScrip : MonoBehaviour
     //Loading bar
     [SerializeField] public GameObject loadingBar;
     [SerializeField] public GameObject loadingStatus;
+    private string jsonFilePath;
+    private string jsonFilePath2;
+    private string jsonFilePath3;
 
 
 
     void Start()
     {
+        //json file path
+        jsonFilePath = Path.Combine(Application.persistentDataPath, "AchievementJSON.json");
+        jsonFilePath2 = Path.Combine(Application.persistentDataPath, "defaultInformation.json");
+        jsonFilePath3 = Path.Combine(Application.persistentDataPath, "InformationDataFile.json");
         DisplayInformation();
     }
 
@@ -100,7 +109,7 @@ public class QuizCheckerScrip : MonoBehaviour
         Animator animator = loadingStatus.GetComponent<Animator>();
         animator.SetBool("loading", true);
 
-        StartCoroutine(WaitforNextScene(6, SceneManager.GetActiveScene().buildIndex+1));
+        StartCoroutine(WaitforNextScene(6, 8));
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);      
     }
 
@@ -132,13 +141,12 @@ public class QuizCheckerScrip : MonoBehaviour
 
     public void DisplayInformation()
     {
-
-        string json = File.ReadAllText(Application.dataPath + "/json/InformationDataFile.json");
-        InformationData data = JsonUtility.FromJson<InformationData>(json);
-        if(data.Title[0] == ""){
+        if(!(File.Exists(jsonFilePath3))){
             DisplayInformationDefault();
             return;
         }
+        string json = File.ReadAllText(jsonFilePath3);
+        InformationData data = JsonUtility.FromJson<InformationData>(json);
         questionText.text = data.Prompts[currentQuestion];
         correctAnswerNumber = data.correctAnswerNumber[currentQuestion];
         buttonText1.text = data.Choices[currentQuestion * 4 + 0];
@@ -149,7 +157,7 @@ public class QuizCheckerScrip : MonoBehaviour
 
      public void DisplayInformationDefault()
     {
-        string json = File.ReadAllText(Application.dataPath + "/json/default.json");
+        string json = File.ReadAllText(jsonFilePath2);
         InformationData data = JsonUtility.FromJson<InformationData>(json);
         questionText.text = data.Description[currentQuestion];
         correctAnswerNumber = data.correctAnswerNumber[currentQuestion];
@@ -172,7 +180,7 @@ public class QuizCheckerScrip : MonoBehaviour
     public void LoadFromJson(int index)
     {
         //load json file
-        string json = File.ReadAllText(Application.dataPath + "/json/AchievementJSON.json");
+        string json = File.ReadAllText(jsonFilePath);
         AchievementJson data = JsonUtility.FromJson<AchievementJson>(json);
 
         bool[] loadData;
@@ -219,7 +227,7 @@ public class QuizCheckerScrip : MonoBehaviour
         }
 
         string json = JsonUtility.ToJson(data,true);
-        File.WriteAllText(Application.dataPath + "/json/AchievementJSON.json", json);
+        File.WriteAllText(jsonFilePath, json);
     }
 
     IEnumerator AchievementNotify(float waitTime, Animator animator)

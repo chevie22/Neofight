@@ -1,3 +1,5 @@
+using System.Net.Mime;
+using System.Net;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,9 +19,11 @@ public class SecretPortal : MonoBehaviour
     [SerializeField] public GameObject panel;
     public CreateAchievement[] newAchievement;
     public TMPro.TextMeshProUGUI title;
+    private string jsonFilePath;
 
     void Start()
     {
+        jsonFilePath = Path.Combine(Application.persistentDataPath, "AchievementJSON.json");
         exitPos = exit.transform.position;
     }
 
@@ -56,7 +60,7 @@ public class SecretPortal : MonoBehaviour
     public void LoadFromJson(int index)
     {
         //load json file
-        string json = File.ReadAllText(Application.dataPath + "/json/AchievementJSON.json");
+        string json = File.ReadAllText(jsonFilePath);
         AchievementJson data = JsonUtility.FromJson<AchievementJson>(json);
 
         bool[] loadData;
@@ -102,7 +106,7 @@ public class SecretPortal : MonoBehaviour
         }
 
         string json = JsonUtility.ToJson(data,true);
-        File.WriteAllText(Application.dataPath + "/json/AchievementJSON.json", json);
+        File.WriteAllText(jsonFilePath, json);
     }
 
     IEnumerator AchievementNotify(float waitTime, Animator animator)

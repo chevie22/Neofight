@@ -49,12 +49,15 @@ public class JsonReadWriteSystem : MonoBehaviour
     public TMP_InputField titleInputField4;
     public TMP_InputField descriptionInputField4;
 
+    private string jsonFilePath;
 
     void Start()
-    {
+    { 
+        jsonFilePath = Path.Combine(Application.persistentDataPath, "InformationDataFile.json");
         string streamingAssetsPath = Path.Combine(Application.streamingAssetsPath, "original_data.json");
         string persistentDataPath = Path.Combine(Application.persistentDataPath, "modified_data.json");
     }
+
 
 
     public void SaveToJson()
@@ -261,14 +264,14 @@ public class JsonReadWriteSystem : MonoBehaviour
 
         string json = JsonUtility.ToJson(data,true);
         //File.WriteAllText(persistentDataPath, json);
-        File.WriteAllText(Application.dataPath + "/json/InformationDataFile.json", json);
+        File.WriteAllText(jsonFilePath, json);
     }
 
     public void LoadFromJson()
     {
         //load json file
         //string json = File.ReadAllText(Application.dataPath + "/json/InformationDataFile.json");
-        string json = File.ReadAllText(Application.dataPath + "/StreamingAssets/InformationDataFile.json");
+        string json = File.ReadAllText(jsonFilePath);
         InformationData data = JsonUtility.FromJson<InformationData>(json);
 
 
