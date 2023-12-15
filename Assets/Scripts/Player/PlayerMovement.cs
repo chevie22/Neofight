@@ -74,11 +74,18 @@ public class PlayerMovement : MonoBehaviour
     //npc dialog
     [SerializeField] private GameObject npcDialog;
 
+    //moving platform
+    [SerializeField] private Transform platformTransform;
+
+    //level
+     public int level;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
+        DontDestroyOnLoad(gameObject);
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();
@@ -86,6 +93,10 @@ public class PlayerMovement : MonoBehaviour
         aButtonSR = aTutorialButton.GetComponent<SpriteRenderer>();
         dButtonSR = dTutorialButton.GetComponent<SpriteRenderer>();
         spaceButtonSR = spaceTutorialButton.GetComponent<SpriteRenderer>();
+
+
+        level = SceneManager.GetActiveScene().buildIndex;
+        
     }
 
     void LateUpdate()
@@ -103,7 +114,8 @@ public class PlayerMovement : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    { 
+    {
+
         //open menu ui  
         if(Input.GetKeyDown(KeyCode.Escape))
         {

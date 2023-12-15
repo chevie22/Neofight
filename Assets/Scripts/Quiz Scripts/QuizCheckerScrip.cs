@@ -38,14 +38,40 @@ public class QuizCheckerScrip : MonoBehaviour
     private string jsonFilePath2;
     private string jsonFilePath3;
 
+    //get level questions and information key
+
 
 
     void Start()
     {
         //json file path
         jsonFilePath = Path.Combine(Application.persistentDataPath, "AchievementJSON.json");
-        jsonFilePath2 = Path.Combine(Application.persistentDataPath, "defaultInformation.json");
         jsonFilePath3 = Path.Combine(Application.persistentDataPath, "InformationDataFile.json");
+        jsonFilePath2 = Path.Combine(Application.persistentDataPath, "defaultInformation2.json");
+
+        //temporary json file path 2 resolution (no more time Im tired)
+        if(!(File.Exists(jsonFilePath2)))
+        {
+            jsonFilePath2 = Path.Combine(Application.persistentDataPath, "defaultInformation.json");
+        }
+
+        //set information and quiz random
+        /*int random = Random.Range(1, 3);
+        Debug.Log(random);
+        switch (random)
+        {
+            case 1:
+                jsonFilePath2 = Path.Combine(Application.persistentDataPath, "defaultInformation.json");
+                break;
+            case 2:
+                jsonFilePath2 = Path.Combine(Application.persistentDataPath, "defaultInformation2.json");
+                break;
+            default:
+                jsonFilePath2 = Path.Combine(Application.persistentDataPath, "defaultInformation.json");
+                break;
+        }*/
+
+
         DisplayInformation();
     }
 
@@ -103,7 +129,6 @@ public class QuizCheckerScrip : MonoBehaviour
     public void NextLevel()
     {
         //go to the next lvl
-        Debug.Log("Achievement Unlock !!!!");
         QuizUI.gameObject.SetActive(false);
         loadingBar.gameObject.SetActive(true);
         Animator animator = loadingStatus.GetComponent<Animator>();

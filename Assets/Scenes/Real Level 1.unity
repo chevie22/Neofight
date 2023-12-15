@@ -123,6 +123,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &1300783859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1300783861}
+  - component: {fileID: 1300783862}
+  m_Layer: 0
+  m_Name: Create new questions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1300783861
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300783859}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.9875108, y: -4.4620113, z: -4.9511795}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1300783862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300783859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d72d13c465d1fbd4dbfb80f48862d76f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &13607802129571539
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28577,7 +28621,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2008174203507710477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38356,6 +38400,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3f0d650382b9bd54ba0adeb3f023d6ae, type: 2}
   title: {fileID: 0}
   npcDialog: {fileID: 5914916238708561616}
+  platformTransform: {fileID: 0}
+  level: 0
 --- !u!114 &5770763885595650699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45266,3 +45312,4 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 6201179379654231936}
+  - {fileID: 1300783861}

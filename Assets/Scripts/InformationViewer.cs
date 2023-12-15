@@ -21,7 +21,13 @@ public class InformationViewer : MonoBehaviour
     private void Start()    
     {
         //json file path
-        jsonFilePath2 = Path.Combine(Application.persistentDataPath, "defaultInformation.json");
+        jsonFilePath2 = Path.Combine(Application.persistentDataPath, "defaultInformation2.json");
+        //temporary json file path 2 resolution (no more time Im tired)
+        if(!(File.Exists(jsonFilePath2)))
+        {
+            jsonFilePath2 = Path.Combine(Application.persistentDataPath, "defaultInformation.json");
+        }
+
         jsonFilePath3 = Path.Combine(Application.persistentDataPath, "InformationDataFile.json");
         currentIndex = 0;
         DisplayInformation();
