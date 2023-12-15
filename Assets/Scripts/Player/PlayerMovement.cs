@@ -88,6 +88,19 @@ public class PlayerMovement : MonoBehaviour
         spaceButtonSR = spaceTutorialButton.GetComponent<SpriteRenderer>();
     }
 
+    void LateUpdate()
+    {
+        if(!inventory && !temp){
+            dirX = Input.GetAxisRaw("Horizontal");
+
+            rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
+
+            Jump();
+            UpdateAnimationState();
+            
+        }
+    }
+
     // Update is called once per frame
     void Update()
     { 
@@ -191,7 +204,7 @@ public class PlayerMovement : MonoBehaviour
         playerPos = transform.position; 
 
         //player movement
-        if(!inventory && !temp){
+        /*if(!inventory && !temp){
             dirX = Input.GetAxisRaw("Horizontal");
 
             rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
@@ -199,7 +212,7 @@ public class PlayerMovement : MonoBehaviour
             Jump();
             UpdateAnimationState();
             
-        }
+        }*/
 
 
         anim.SetBool("grounded", IsGrounded());
